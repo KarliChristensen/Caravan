@@ -1,8 +1,10 @@
 export class Tokens {
-  constructor() {
+  constructor(game) {
     this.game = game;
     this.width = 400;
     this.height = 398;
+    this.x = 0; // Adjust to arr
+    this.y = 0; // Adjust to arr
   }
   update() {
     // movement
@@ -10,11 +12,19 @@ export class Tokens {
     this.y += this.speedY;
   }
   draw(context) {
-    context.drawImage(this.image, this.x, this.y, );
+    context.fillRect(this.x, this.y, this.width, this.height);
+    /*context.drawImage(
+      this.image,
+      this.x,
+      this.y,
+      //adjust to arr
+      this.width,
+      this.height
+    );*/
   }
 }
 
-class Arthur extends Tokens {
+export class Arthur extends Tokens {
   constructor() {
     super();
     this.game = game;
@@ -22,7 +32,8 @@ class Arthur extends Tokens {
     this.y = 0; //fix
     this.speedX = 2;
     this.speedX = 0;
-    this.image = document.getElementById(`token_arthur`)
+    this.image = document.getElementById(`token_arthur`);
+    // Add combat values
   }
 }
 

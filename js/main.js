@@ -1,4 +1,5 @@
 import { Tokens } from "./tokens.js";
+import { Arthur } from "./tokens.js";
 
 window.addEventListener(`load`, function () {
   const canvas = document.getElementById(`canvas1`);
@@ -19,16 +20,29 @@ window.addEventListener(`load`, function () {
   }
   const game = new Game(canvas.width, canvas.height);
 
-  document.getElementById("popUpBtn").addEventListener("click", hide);
+  document.getElementById("popUpBtn").addEventListener("click", hideCharBar); // Add automatic hide function when charArr is full and pop-up function when the game is over or restarting.
 
-  function hide() {
+  function hideCharBar() {
     let pop = popUp.style.display;
     popUp.style.display = pop === "none" ? "block" : "none";
+  }
+
+  document.getElementById("secondPopUpBtn").addEventListener("click", rosterFullAlert); 
+
+  function rosterFullAlert() {
+    let secondPopUp = document.getElementById("secondPopUp");
+    secondPopUp.style.display = secondPopUp.style.display === "none" ? "block" : "none";
   }
 
   document.getElementById("charBtn1").addEventListener("click", char1ToArr);
 
   function char1ToArr() {
-    charArr.push(Arthur);
+    if (charArr.length < 4) {
+      const arthur = new Arthur();
+      charArr.push(arthur);
+      console.log(charArr);
+    } else {
+      // Display message
+    }
   }
 });
