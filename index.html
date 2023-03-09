@@ -5,14 +5,13 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Caravan</title>
-    <link rel="stylesheet" href="./style.css" />
+    <link rel="stylesheet" href="/styles/style.css" />
   </head>
   <body>
     <canvas id="canvas1"></canvas>
-    <img class="dn" src="/images/Tokens/Arthur.png" alt="" />
-    <img class="dn" src="/images/Tokens/Arthur.png" alt="" />
-    <img class="dn" src="/images/Tokens/Gareth.png" alt="" />
-    <img class="dn" src="/images/Tokens/Merlin.png" alt="" />
+    <img class="dn" id="token_arthur" src="/images/Tokens/Arthur.png" alt="" />
+    <img class="dn" id="token_gareth" src="/images/Tokens/Gareth.png" alt="" />
+    <img class="dn" id="token_merlin" src="/images/Tokens/Merlin.png" alt="" />
     <div id="popUp">
       <div class="popUpDiv">
         <button id="charBtn1" class="charBtn">C1</button>
@@ -22,8 +21,9 @@
         <button id="charBtn3" class="charBtn">C2</button>
         <button id="charBtn4" class="charBtn">C4</button>
       </div>
+      <div id="infoDiv">info</div>
     </div>
     <button id="popUpBtn">Click Me</button>
-    <script type="module" src="/main.js"></script>
+    <script type="module" src="./js/main.js"></script>
   </body>
 </html>
