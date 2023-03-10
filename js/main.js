@@ -14,6 +14,7 @@ window.addEventListener(`load`, function () {
     constructor(width, height) {
       this.width = width;
       this.height = height;
+      this.token = new Tokens(this)
     }
     update() {}
     draw() {}
@@ -38,11 +39,11 @@ window.addEventListener(`load`, function () {
 
   function char1ToArr() {
     if (charArr.length < 4) {
-      const arthur = new Arthur();
+      const arthur = new Arthur(game);
       charArr.push(arthur);
       console.log(charArr);
     } else {
-      // Display message
+      rosterFullAlert();
     }
   }
 });

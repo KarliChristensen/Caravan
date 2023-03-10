@@ -25,8 +25,8 @@ export class Tokens {
 }
 
 export class Arthur extends Tokens {
-  constructor() {
-    super();
+  constructor(game) {
+    super(game);
     this.game = game;
     this.x = 0; //fix
     this.y = 0; //fix
