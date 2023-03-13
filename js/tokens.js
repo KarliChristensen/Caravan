@@ -3,40 +3,34 @@ export class Tokens {
     this.game = game;
     this.width = 400;
     this.height = 398;
-    this.x = 0; // Adjust to arr
-    this.y = 0; // Adjust to arr
   }
   update() {
     // movement
     this.x += this.speedX;
     this.y += this.speedY;
   }
-  draw(context) {
-    context.fillRect(this.x, this.y, this.width, this.height);
-    /*context.drawImage(
-      this.image,
-      this.x,
-      this.y,
-      //adjust to arr
-      this.width,
-      this.height
-    );*/
+  draw() {
+    const row = Math.floor(this.index / 4); // Assuming 4 characters per row
+    const col = this.index % 4;
+    const x = col * 50 + 10; // Assuming 50 pixels per character
+    const y = row * 50 + 10;
   }
 }
 
 export class Arthur extends Tokens {
   constructor(game) {
     super(game);
-    this.game = game;
-    this.x = 0; //fix
-    this.y = 0; //fix
+    this.x = 0;
+    this.y = 0;
     this.speedX = 2;
     this.speedX = 0;
-    this.image = document.getElementById(`token_arthur`);
-    // Add combat values
+    this.image = document.getElementById("Arthur");
+  }
+  update() {}
+  draw(context) {
+    context.drawImage(this.image, this.x, this.y)
   }
 }
-
 class Merlin extends Tokens {
   constructor() {
     super();
