@@ -1,24 +1,27 @@
-export class Tokens {
+export class Enemies {
   constructor(game) {
     this.game = game;
     this.width = 150;
     this.height = 149;
-    this.SpawnGridPositions = [[50, 50], [250, 50], [50, 250], [250, 250]];
+    this.SpawnGridPositions = [
+      [50, 50],
+      [250, 50],
+      [50, 250],
+      [250, 250],
+    ];
   }
-  update() {
-  }
+  update() {}
   draw() {
     context.drawImage(this.image, this.x, this.y);
   }
 }
 
-export class Arthur extends Tokens {
+export class Goblin1 extends Enemies {
   constructor(game) {
     super(game);
-
-    this.speedX = 2;
+    this.speedX = -2;
     this.speedY = 0;
-    this.image = document.getElementById("Arthur");
+    this.image = document.getElementById("goblin1");
   }
   update() {
     this.x += this.speedX;
@@ -29,12 +32,12 @@ export class Arthur extends Tokens {
   }
 }
 
-export class Merlin extends Tokens {
+export class Goblin2 extends Enemies {
   constructor(game) {
     super(game);
-    this.speedX = 2;
+    this.speedX = -2;
     this.speedY = 0;
-    this.image = document.getElementById("Merlin");
+    this.image = document.getElementById("goblin2");
   }
   update() {
     this.x += this.speedX;
@@ -45,12 +48,12 @@ export class Merlin extends Tokens {
   }
 }
 
-export class Gareth extends Tokens {
+export class Goblin3 extends Enemies {
   constructor(game) {
     super(game);
-    this.speedX = 2;
+    this.speedX = -2;
     this.speedY = 0;
-    this.image = document.getElementById("Gareth");
+    this.image = document.getElementById("goblin3");
   }
   update() {
     this.x += this.speedX;
@@ -61,12 +64,12 @@ export class Gareth extends Tokens {
   }
 }
 
-export class Pellinor extends Tokens {
+export class Goblin4 extends Enemies {
   constructor(game) {
     super(game);
-    this.speedX = 2;
+    this.speedX = -2;
     this.speedY = 0;
-    this.image = document.getElementById("Pellinor");
+    this.image = document.getElementById("goblin4");
   }
   update() {
     this.x += this.speedX;

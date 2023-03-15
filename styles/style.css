@@ -16,7 +16,7 @@ body {
   transform: translate(-50%, -50%);
   max-width: 100%;
   max-height: 100%;
-  background-image: url(/images/fwsr0d89wq661.jpg);
+  background-image: url(/images/Backgrounds/26si38gntm471.jpg);
   background-size: 100%;
 }
 
@@ -80,6 +80,21 @@ body {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
+  height: 100px;
+  width: 200px;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: rgba(166, 6, 6, 0.757);
+  z-index: 1;
+}
+
+#startDiv {
+  position: absolute;
+  display: block;
+  border: 5px solid black;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, 200%);
   height: 100px;
   width: 200px;
   max-width: 100%;
