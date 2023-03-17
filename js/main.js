@@ -17,16 +17,70 @@ window.addEventListener(`load`, function () {
 
   let gameStarted = false;
 
+  function handleCollision() {
+    for (let i = 0; i < game.tokensOnCanvasArr.length; i++) {
+      for (let j = 0; j < game.enemiesOnCanvasArr.length; j++) {
+        const token = game.tokensOnCanvasArr[i];
+        const goblin = game.enemiesOnCanvasArr[j];
+        if (
+          token.x < goblin.x + goblin.width &&
+          token.x + token.width > goblin.x &&
+          token.y < goblin.y + goblin.height &&
+          token.y + token.height > goblin.y
+        ) {
+          handleCombat(token, goblin);
+          token.speedX = 0;
+          token.speedY = 0;
+          goblin.speedX = 0;
+          goblin.speedY = 0;
+          setTimeout(() => {
+            token.speedX = 2;
+            token.speedY = 0;
+            goblin.speedX = 3;
+            goblin.speedY = 0;
+          }, 1000); // set the timeout to 3 seconds (3000 milliseconds)
+        }
+      }
+    }
+  }
+  function handleCombat(token, goblin) {
+    // if token hits goblin, decrease goblin health
+    goblin.health -= token.attack;
+
+    // if goblin health falls below 0, remove it from enemies array
+    if (goblin.health <= 0) {
+      game.enemiesOnCanvasArr.splice(
+        game.enemiesOnCanvasArr.indexOf(goblin),
+        1
+      );
+      console.log(`Goblin defeated`);
+    }
+
+    // if goblin hits token, decrease token health
+    token.health -= goblin.attack;
+
+    // if token health falls below 0, remove it from tokens array
+    if (token.health <= 0) {
+      game.tokensOnCanvasArr.splice(game.tokensOnCanvasArr.indexOf(token), 1);
+      console.log(`Token defeated`);
+      if (game.tokensOnCanvasArr.length === 0) {
+        console.log(`Game over`);
+        gameStarted = false;
+      }
+    }
+  }
+
   class Game {
     constructor(width, height) {
       this.width = width;
       this.height = height;
-      this.arthur = new Arthur(this);
       this.tokensOnCanvasArr = [];
       this.enemiesOnCanvasArr = [];
       this.SpawnGridPositions = [
-        [50, 50],
-        [250, 50],
+        [200, 200],
+        [200, 300],
+        [200, 400],
+        [200, 500],
       ];
     }
 
@@ -35,9 +89,10 @@ window.addEventListener(`load`, function () {
         for (let i = 0; i < this.tokensOnCanvasArr.length; i++) {
           this.tokensOnCanvasArr[i].update();
         }
-        for (let i = 0; i < this.tokensOnCanvasArr.length; i++) {
+        for (let i = 0; i < this.enemiesOnCanvasArr.length; i++) {
           this.enemiesOnCanvasArr[i].update();
         }
+        handleCollision();
       }
     }
 
@@ -62,7 +117,6 @@ window.addEventListener(`load`, function () {
         return false;
       }
     }
-
     removeToken(token) {
       const index = this.tokensOnCanvasArr.indexOf(token);
       if (index !== -1) {
@@ -190,10 +244,10 @@ window.addEventListener(`load`, function () {
 
   function spawnGoblins(goblinArr) {
     const spawnPositions = [
-      [100, 100],
-      [300, 100],
-      [100, 300],
-      [300, 300],
+      [1600, 200],
+      [1600, 250],
+      [1600, 300],
+      [1600, 350],
     ];
 
     // Shuffle the goblin array to randomize the selection

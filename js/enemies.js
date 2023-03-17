@@ -3,12 +3,8 @@ export class Enemies {
     this.game = game;
     this.width = 150;
     this.height = 149;
-    this.SpawnGridPositions = [
-      [50, 50],
-      [250, 50],
-      [50, 250],
-      [250, 250],
-    ];
+    this.health = 2;
+    this.attack = 2;
   }
   update() {}
   draw() {

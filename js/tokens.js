@@ -3,10 +3,14 @@ export class Tokens {
     this.game = game;
     this.width = 150;
     this.height = 149;
-    this.SpawnGridPositions = [[50, 50], [250, 50], [50, 250], [250, 250]];
+    this.SpawnGridPositions = [
+      [50, 50],
+      [250, 50],
+      [50, 250],
+      [250, 250],
+    ];
   }
-  update() {
-  }
+  update() {}
   draw() {
     context.drawImage(this.image, this.x, this.y);
   }
@@ -15,9 +19,10 @@ export class Tokens {
 export class Arthur extends Tokens {
   constructor(game) {
     super(game);
-
     this.speedX = 2;
     this.speedY = 0;
+    this.health = 10;
+    this.attack = 2;
     this.image = document.getElementById("Arthur");
   }
   update() {
@@ -34,6 +39,8 @@ export class Merlin extends Tokens {
     super(game);
     this.speedX = 2;
     this.speedY = 0;
+    this.health = 5;
+    this.attack = 5;
     this.image = document.getElementById("Merlin");
   }
   update() {
@@ -50,6 +57,8 @@ export class Gareth extends Tokens {
     super(game);
     this.speedX = 2;
     this.speedY = 0;
+    this.health = 8;
+    this.attack = 4;
     this.image = document.getElementById("Gareth");
   }
   update() {
@@ -66,6 +75,8 @@ export class Pellinor extends Tokens {
     super(game);
     this.speedX = 2;
     this.speedY = 0;
+    this.health = 15;
+    this.attack = 1;
     this.image = document.getElementById("Pellinor");
   }
   update() {
