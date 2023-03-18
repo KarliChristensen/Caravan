@@ -19,10 +19,11 @@ export class Tokens {
 export class Arthur extends Tokens {
   constructor(game) {
     super(game);
+    this.name = "Arthur";
     this.speedX = 2;
     this.speedY = 0;
     this.health = 10;
-    this.attack = 2;
+    this.attack = 0;
     this.image = document.getElementById("Arthur");
   }
   update() {
@@ -37,6 +38,7 @@ export class Arthur extends Tokens {
 export class Merlin extends Tokens {
   constructor(game) {
     super(game);
+    this.name = "Merlin";
     this.speedX = 2;
     this.speedY = 0;
     this.health = 5;
@@ -55,6 +57,7 @@ export class Merlin extends Tokens {
 export class Gareth extends Tokens {
   constructor(game) {
     super(game);
+    this.name = "Gareth"
     this.speedX = 2;
     this.speedY = 0;
     this.health = 8;
@@ -73,6 +76,7 @@ export class Gareth extends Tokens {
 export class Pellinor extends Tokens {
   constructor(game) {
     super(game);
+    this.name = "Pellinor"
     this.speedX = 2;
     this.speedY = 0;
     this.health = 15;

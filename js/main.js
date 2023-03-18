@@ -14,61 +14,7 @@ window.addEventListener(`load`, function () {
   const ctx = canvas.getContext(`2d`);
   canvas.width = 1800;
   canvas.height = 1000;
-
   let gameStarted = false;
-
-  function handleCollision() {
-    for (let i = 0; i < game.tokensOnCanvasArr.length; i++) {
-      for (let j = 0; j < game.enemiesOnCanvasArr.length; j++) {
-        const token = game.tokensOnCanvasArr[i];
-        const goblin = game.enemiesOnCanvasArr[j];
-        if (
-          token.x < goblin.x + goblin.width &&
-          token.x + token.width > goblin.x &&
-          token.y < goblin.y + goblin.height &&
-          token.y + token.height > goblin.y
-        ) {
-          handleCombat(token, goblin);
-          token.speedX = 0;
-          token.speedY = 0;
-          goblin.speedX = 0;
-          goblin.speedY = 0;
-          setTimeout(() => {
-            token.speedX = 2;
-            token.speedY = 0;
-            goblin.speedX = 3;
-            goblin.speedY = 0;
-          }, 1000); // set the timeout to 3 seconds (3000 milliseconds)
-        }
-      }
-    }
-  }
-  function handleCombat(token, goblin) {
-    // if token hits goblin, decrease goblin health
-    goblin.health -= token.attack;
-
-    // if goblin health falls below 0, remove it from enemies array
-    if (goblin.health <= 0) {
-      game.enemiesOnCanvasArr.splice(
-        game.enemiesOnCanvasArr.indexOf(goblin),
-        1
-      );
-      console.log(`Goblin defeated`);
-    }
-
-    // if goblin hits token, decrease token health
-    token.health -= goblin.attack;
-
-    // if token health falls below 0, remove it from tokens array
-    if (token.health <= 0) {
-      game.tokensOnCanvasArr.splice(game.tokensOnCanvasArr.indexOf(token), 1);
-      console.log(`Token defeated`);
-      if (game.tokensOnCanvasArr.length === 0) {
-        console.log(`Game over`);
-        gameStarted = false;
-      }
-    }
-  }
 
   class Game {
     constructor(width, height) {
@@ -78,21 +24,77 @@ window.addEventListener(`load`, function () {
       this.enemiesOnCanvasArr = [];
       this.SpawnGridPositions = [
         [200, 200],
-        [200, 300],
         [200, 400],
-        [200, 500],
+        [200, 600],
+        [200, 800],
       ];
+    }
+
+    handleCombat(token, goblin) {
+      // Attack from token to goblin
+      goblin.health -= token.attack;
+      console.log(
+        `${token.name} causes ${token.attack} to the goblin, it has ${goblin.health} left`
+      );
+      if (goblin.health <= 0) {
+        this.enemiesOnCanvasArr.splice(
+          this.enemiesOnCanvasArr.indexOf(goblin),
+          1
+        );
+        console.log(`A goblin was defeated`);
+        if (this.enemiesOnCanvasArr.length === 0 || token.x > 1800) {
+          gameWon();
+          console.log(`Game won`);
+          this.gameStarted = false;
+          token.speedX = 2;
+          token.speedY = 0;
+        }
+      } else {
+        token.speedX = 0;
+        token.speedY = 0;
+        goblin.speedX = 0;
+        goblin.speedY = 0;
+      }
+      // Attack from goblin to token
+      token.health -= goblin.attack;
+      console.log(
+        `The goblin causes ${goblin.attack} to ${token.name}, he has ${token.health} left`
+      );
+      if (token.health <= 0) {
+        this.tokensOnCanvasArr.splice(this.tokensOnCanvasArr.indexOf(token), 1);
+        console.log(`A player was defeated`);
+        if (this.tokensOnCanvasArr.length === 0) {
+          console.log(`Game over`);
+          this.gameStarted = false;
+          gameOver();
+        }
+      }
     }
 
     update() {
       if (gameStarted) {
         for (let i = 0; i < this.tokensOnCanvasArr.length; i++) {
-          this.tokensOnCanvasArr[i].update();
+          const token = this.tokensOnCanvasArr[i];
+          token.update();
         }
-        for (let i = 0; i < this.enemiesOnCanvasArr.length; i++) {
-          this.enemiesOnCanvasArr[i].update();
+        for (let j = 0; j < this.enemiesOnCanvasArr.length; j++) {
+          const goblin = this.enemiesOnCanvasArr[j];
+          goblin.update();
         }
-        handleCollision();
+        for (let i = 0; i < this.tokensOnCanvasArr.length; i++) {
+          const token = this.tokensOnCanvasArr[i];
+          for (let j = 0; j < this.enemiesOnCanvasArr.length; j++) {
+            const goblin = this.enemiesOnCanvasArr[j];
+            if (
+              goblin.x < token.x + token.width &&
+              goblin.x + goblin.width > token.x &&
+              goblin.y < token.y + token.height &&
+              goblin.y + goblin.height > token.y
+            ) {
+              this.handleCombat(token, goblin);
+            }
+          }
+        }
       }
     }
 
@@ -113,10 +115,10 @@ window.addEventListener(`load`, function () {
         this.tokensOnCanvasArr.push(token);
         return true;
       } else {
-        rosterFullAlert();
         return false;
       }
     }
+
     removeToken(token) {
       const index = this.tokensOnCanvasArr.indexOf(token);
       if (index !== -1) {
@@ -125,7 +127,17 @@ window.addEventListener(`load`, function () {
       }
       return false;
     }
+    addGoblinEverySecond(game) {
+      setInterval(function() {
+        const newGoblin = new Goblin1(game);
+        newGoblin.x = 1600;
+        newGoblin.y = 200;
+        game.enemiesOnCanvasArr.push(newGoblin);
+      }, 1000);
+    }
   }
+
+  const game = new Game(canvas.width, canvas.height);
 
   function animate() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
@@ -138,6 +150,9 @@ window.addEventListener(`load`, function () {
   document.getElementById("charBtn2").addEventListener("click", char2ToArr);
   document.getElementById("charBtn3").addEventListener("click", char3ToArr);
   document.getElementById("charBtn4").addEventListener("click", char4ToArr);
+  document
+    .getElementById("characterSelect")
+    .addEventListener("click", hideCharBar);
 
   function char1ToArr() {
     const arthur = new Arthur(game);
@@ -149,7 +164,6 @@ window.addEventListener(`load`, function () {
         console.log("Added Arthur to game");
       } else {
         console.log("Cannot add more than 2 characters");
-        rosterFullAlert();
       }
     } else {
       game.removeToken(game.tokensOnCanvasArr[index]);
@@ -167,7 +181,6 @@ window.addEventListener(`load`, function () {
         console.log("Added Merlin to game");
       } else {
         console.log("Cannot add more than 2 characters");
-        rosterFullAlert();
       }
     } else {
       game.removeToken(game.tokensOnCanvasArr[index]);
@@ -185,7 +198,6 @@ window.addEventListener(`load`, function () {
         console.log("Added Gareth to game");
       } else {
         console.log("Cannot add more than 2 characters");
-        rosterFullAlert();
       }
     } else {
       game.removeToken(game.tokensOnCanvasArr[index]);
@@ -203,7 +215,6 @@ window.addEventListener(`load`, function () {
         console.log("Added Pellinor to game");
       } else {
         console.log("Cannot add more than 2 characters");
-        rosterFullAlert();
       }
     } else {
       game.removeToken(game.tokensOnCanvasArr[index]);
@@ -211,29 +222,42 @@ window.addEventListener(`load`, function () {
     }
   }
 
-  document.getElementById("popUpBtn").addEventListener("click", hideCharBar); // Add automatic hide function when charArr is full and pop-up function when the game is over or restarting.
-
   function hideCharBar() {
     let pop = popUp.style.display;
     popUp.style.display = pop === "none" ? "block" : "none";
   }
 
-  function rosterFullAlert() {
-    let secondPopUp = document.getElementById("secondPopUp");
-    secondPopUp.style.display =
-      secondPopUp.style.display === "none" ? "block" : "none";
+  function gameOver() {
+    let gameOverPopUp = document.getElementById("gameOverPopUp");
+    let restartDiv = document.getElementById("restartDiv");
+    gameOverPopUp.style.display = "block";
+    restartDiv.style.display = "block";
   }
 
-  document
-    .getElementById("secondPopUpBtn")
-    .addEventListener("click", rosterFullAlert);
+  function gameWon() {
+    let gameWon = document.getElementById("gameWon");
+    gameWon.style.display = "block";
+  }
+
+  function restartGame() {
+    console.log("check")
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    game.tokensOnCanvasArr = [];
+    game.enemiesOnCanvasArr = [];
+    game.gameStarted = false;
+    gameOverPopUp.style.display = "none";
+    restartDiv.style.display = "none";
+    spawnGoblins(goblinArr);
+  }
+
+  document.getElementById("characterSelect");
 
   document.getElementById("start").addEventListener("click", function () {
     gameStarted = true;
   });
-
-  const game = new Game(canvas.width, canvas.height);
-  console.log(game);
+  document.getElementById("restart").addEventListener("click", function () {
+    restartGame();
+  });
 
   let goblinArr = [
     new Goblin1(game),
@@ -250,17 +274,16 @@ window.addEventListener(`load`, function () {
       [1600, 350],
     ];
 
-    // Shuffle the goblin array to randomize the selection
     const shuffledGoblins = goblinArr.sort(() => Math.random() - 0.5);
 
-    // Add the first two goblins from the shuffled array to the canvas
-    for (let i = 0; i < 2; i++) {
+    for (let i = 0; i < 4; i++) {
       const goblin = shuffledGoblins[i];
       goblin.x = spawnPositions[i][0];
       goblin.y = spawnPositions[i][1];
       game.enemiesOnCanvasArr.push(goblin);
     }
   }
+
   spawnGoblins(goblinArr);
   animate();
 });

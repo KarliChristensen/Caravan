@@ -4,7 +4,7 @@ export class Enemies {
     this.width = 150;
     this.height = 149;
     this.health = 2;
-    this.attack = 2;
+    this.attack = 1;
   }
   update() {}
   draw() {

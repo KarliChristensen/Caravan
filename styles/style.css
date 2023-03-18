@@ -30,19 +30,51 @@ body {
     border: 5px solid black;
 }
 
-/*
+
 #charBtn1 {
-} 
+  background-image: url(/images/Buttons/Arthur.png);
+  background-size: cover;
+  background-color: rgba(240, 248, 255, 0);
+  width: 80px;
+  height: 80px;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+}
 
 #charBtn2 {
+  background-image: url(/images/Buttons/Merlin.png);
+  background-size: cover;
+  background-color: rgba(240, 248, 255, 0);
+  width: 80px;
+  height: 80px;
+	border: none;
+	font: inherit;
+	cursor: pointer;
 }
 
 #charBtn3 {
+  background-image: url(/images/Buttons/Gareth.png);
+  background-size: cover;
+  background-color: rgba(240, 248, 255, 0);
+  width: 80px;
+  height: 80px;
+	border: none;
+	font: inherit;
+	cursor: pointer;
 }
 
 #charBtn4 {
+  background-image: url(/images/Buttons/Pellinor.png);
+  background-size: cover;
+  background-color: rgba(240, 248, 255, 0);
+  width: 80px;
+  height: 80px;
+	border: none;
+	font: inherit;
+	cursor: pointer;
 }
-*/
+
 
 #popUp {
     position: absolute;
@@ -73,32 +105,114 @@ body {
   height: 375px;
 }
 
-#secondPopUp {
+#gameOverPopUp {
   position: absolute;
-  display: block;
-  border: 5px solid black;
+  display: none;
+  text-align: center;
+  font-size: 2em;
+  line-height: 3.5em;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  height: 100px;
-  width: 200px;
+  height: 125px;
+  width: 228px;
   max-width: 100%;
   max-height: 100%;
-  background-color: rgba(166, 6, 6, 0.757);
+  background-color: rgba(166, 6, 6, 0);
+  background-image: url(/images/Buttons/Start.png);
   z-index: 1;
 }
 
 #startDiv {
   position: absolute;
-  display: block;
-  border: 5px solid black;
   top: 50%;
   left: 50%;
-  transform: translate(-50%, 200%);
-  height: 100px;
-  width: 200px;
+  transform: translate(-1075%, -325%);
+  height: 142px;
+  width: 65px;
   max-width: 100%;
   max-height: 100%;
-  background-color: rgba(166, 6, 6, 0.757);
+  background-color: rgba(0, 0, 0, 0)
+}
+
+#start {
+  background-image: url(/images/Buttons/Select.png);
+  background-repeat: no-repeat;
+  background-color: rgba(240, 248, 255, 0);
+  width: 142px;
+  height: 65px;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+}
+
+#characterSelect {
+  background-image: url(/images/Buttons/Select.png);
+  background-repeat: no-repeat;
+  background-color: rgba(240, 248, 255, 0);
+  width: 142px;
+  height: 65px;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+}
+
+#characterDiv {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-1350%, -325%);
+  height: 142px;
+  width: 65px;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: rgba(0, 0, 0, 0)
+}
+
+#restartDiv {
+  position: absolute;
+  display: none;
+  text-align: center;
+  background-repeat: no-repeat;
+  font-size: 1.5em;
+  line-height: 1.5em;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, +120%);
+  height: 61px;
+  width: 144px;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: rgba(0, 0, 0, 0);
+  background-image: url(/images/Buttons/Select.png);
+  z-index: 1;
+}
+
+#restart {
+  background-image: url(/images/Buttons/Select.png);
+  background-repeat: no-repeat;
+  background-color: rgba(0, 0, 0, 0);
+  width: 142px;
+  height: 65px;
+	border: none;
+	font: inherit;
+	cursor: pointer;
+}
+
+#gameWon {
+  position: absolute;
+  display: none;
+  text-align: center;
+  font-size: 2em;
+  line-height: 3.5em;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  height: 125px;
+  width: 228px;
+  max-width: 100%;
+  max-height: 100%;
+  background-color: rgba(166, 6, 6, 0);
+  background-image: url(/images/Buttons/Start.png);
   z-index: 1;
 }
